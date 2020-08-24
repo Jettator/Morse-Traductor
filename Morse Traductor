@@ -1,24 +1,21 @@
 using System;
 using System.Collections.Generic;
 
-namespace consoleapp1
+namespace ConsoleApp5
 {
     class Program
     {
-        static Dictionary<char, string> translator;
-
+        static Dictionary<Char, string> traductor;
         static void Main(string[] args)
         {
-            InitialiseDictionary();
-            getUserInput();
+            diccionario();
+            obtenerdatos();
         }
 
-        private static void InitialiseDictionary()
+        private static void diccionario() 
         {
-            char dot = '.';
-            char dash = '−';
-
-            translator = new Dictionary<char, string>()
+            char dot = '.', dash = '-';
+            traductor = new Dictionary<char, string>() 
             {
                 {'a', string.Concat(dot, dash)},
                 {'b', string.Concat(dash, dot, dot, dot)},
@@ -57,47 +54,45 @@ namespace consoleapp1
                 {'8', string.Concat(dash, dash, dash, dot, dot)},
                 {'9', string.Concat(dash, dash, dash, dash, dot)}
             };
+
         }
 
-        public static void getUserInput()
+        private static void obtenerdatos() 
         {
             string input;
-            
-            Console.WriteLine("What did you want to say?");
-            input = Console.ReadLine();
-            input = input.ToLower();    
-            Console.WriteLine("Your output is: " + translate(input));
-            for (int i = 0; i< 20; i++) {
-                if (input == ".")
-                    Console.Beep(3000, 100);            //hz , second
-                else
-                    Console.Beep(1000, 100);
-            }
-            Console.WriteLine("Press enter to end.");
-            Console.ReadLine();
-        }
 
-        private static string translate(string input)
-        {
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            foreach (char character in input)
+            Console.WriteLine("Que quiere decir: ");
+            input = Console.ReadLine();
+            input = input.ToLower();
+            Console.WriteLine("La traduccion es: " + traductorvd(input) );
+            for (int i = 0; i <20; i++) 
             {
-                if (translator.ContainsKey(character))
-                {
-                    sb.Append(translator[character] + " ");
-                }
-                else if (character == ' ')
-                {
-                    sb.Append("/ ");
-                }
+                if (input == ".")
+                    Console.Beep(3000, 500);
                 else
-                {
-                    sb.Append(character + " ");
-                }
-             
+                    Console.Beep(3000, 700);
+            
             }
         
+        }
+
+        private static string traductorvd(string input) 
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            foreach (char caracteres in input)
+            {
+                if (traductor.ContainsKey(caracteres))
+                    sb.Append(traductor[caracteres] + " ");
+                else if (caracteres == ' ')
+                    sb.Append("/ ");
+                else
+                    sb.Append(caracteres + " ");
+
+                
+            }
             return sb.ToString();
         }
+
     }
-}
+ }
+
